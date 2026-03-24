@@ -48,9 +48,9 @@ class TailwindBuilder
         bool $watch,
         bool $poll,
         bool $minify,
+        int $timeout = 60,
         ?string $inputFile = null,
         ?string $postCssConfigFile = null,
-        ?int $timeout = null,
     ): Process {
         $binary = $this->createBinary();
 
