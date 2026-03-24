@@ -38,6 +38,7 @@ class TailwindBuildCommand extends Command
             ->addOption('poll', null, null, 'Use polling instead of filesystem events when watching')
             ->addOption('minify', 'm', InputOption::VALUE_NONE, 'Minify the output CSS')
             ->addOption('postcss', null, InputOption::VALUE_REQUIRED, 'Load custom PostCSS configuration')
+            ->addOption('timeout', null, InputOption::VALUE_REQUIRED, 'timeout for the build process', 60)
         ;
     }
 
@@ -52,6 +53,7 @@ class TailwindBuildCommand extends Command
             minify: $input->getOption('minify'),
             inputFile: $input->getArgument('input_css'),
             postCssConfigFile: $input->getOption('postcss'),
+            timeout: $input->getOption('timeout'),
         );
         $process->wait(static function ($type, $buffer) use ($io) {
             $io->write($buffer);

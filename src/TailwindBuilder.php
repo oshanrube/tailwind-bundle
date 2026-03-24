@@ -50,6 +50,7 @@ class TailwindBuilder
         bool $minify,
         ?string $inputFile = null,
         ?string $postCssConfigFile = null,
+        ?int $timeout = null,
     ): Process {
         $binary = $this->createBinary();
 
@@ -89,8 +90,8 @@ class TailwindBuilder
             $arguments[] = $postCssConfigPath;
         }
         $process = $binary->createProcess($arguments);
+        $process->setTimeout($watch ? null : $timeout);
         if ($watch) {
-            $process->setTimeout(null);
             // setting an input stream causes the command to "wait" for the watch
             $inputStream = new InputStream();
             $process->setInput($inputStream);
